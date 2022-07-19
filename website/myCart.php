@@ -48,7 +48,7 @@ if (!isset($_SESSION['cus_id'])) {
     $result = mysqli_query($connection, $cart_query);
 
     if ($result) {
-        echo mysqli_num_rows($result) . " Records found!";
+        echo mysqli_num_rows($result) . " Cars are in your cart";
 
         if (mysqli_num_rows($result) > 0) { ?>
 

@@ -175,6 +175,11 @@
     justify-content: space-between;
 }
 
+.homeHeader p a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .buyBtn{
     position: relative;
     color: white;

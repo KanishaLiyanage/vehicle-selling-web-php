@@ -74,7 +74,7 @@ if (isset($_GET['item_id'])) {
     ?>
 
     <form action="purchase.php" method="POST">
-    Quantity: <input type="number" min="1" name="qty" size="2" maxlength="3" placeholder="Qty" required>
+    Quantity: <input type="number" min="1" name="qty" size="2" maxlength="3" placeholder="Qty" value="1" required>
         <input type="hidden" name="prc" value="<?php echo $prc; ?>">
         <input type="hidden" name="prd_id" value="<?php echo $prd_id; ?>">
         <br> <br>

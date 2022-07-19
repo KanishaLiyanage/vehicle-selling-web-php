@@ -47,7 +47,7 @@ if (!isset($_SESSION['cus_id'])) {
     $check_order_query = mysqli_query($connection, $orders_query);
 
     if ($check_order_query) {
-        echo mysqli_num_rows($check_order_query) . " Records found!";
+        echo mysqli_num_rows($check_order_query) . " Cars purchased";
 
         if (mysqli_num_rows($check_order_query) > 0) { ?>
 

@@ -27,12 +27,10 @@ if (!isset($_SESSION['cus_id'])) {
         <a class="cartBtn" href="myCart.php"> Cart </a>
         <a class="favBtn" href="myFavorites.php"> Favorites </a>
         <a class="ordersBtn" href="myOrders.php"> Purchased Products </a>
-        <a class="editBtn" href="editProfile.php"> Edit Profile </a>
+        <a class="editBtn" href="editProfile.php"> Edit My Profile </a>
         </div>
 
     <center>
-
-        <h1 class="h1">My Profile</h1>
 
         <?php
 
@@ -44,13 +42,18 @@ if (!isset($_SESSION['cus_id'])) {
 
             while ($record = mysqli_fetch_array($result)) {
 
+                $_GET['id'] = $record['customer_id'];
+
         ?>
 
                 <div class="profileCard">
 
+                    <h1 class="h1"><?php echo $record['username']; ?> </h1>
                     <img class="uImg" src="../assets/uploads/profile_pics/<?php echo $record['image'];?>" alt="<?php echo $record['image'];?>">
-                    <p>ID: <?php echo $record['customer_id']; ?> </p>
-                    <p>User Name: <?php echo $record['username']; ?> </p>
+                    <form method="post">
+                    <input type="submit" name="editButton" value="Change Profile Picture" class="button1 button2" />
+                    </form>
+                    <p>User ID: <?php echo $record['customer_id']; ?> </p>
                     <p>Email: <?php echo $record['email']; ?> </p>
                     <p>Mobile Number: <?php echo $record['mobile_number']; ?> </p>
                     <p>Address: <?php echo $record['address']; ?> </p>
@@ -64,6 +67,14 @@ if (!isset($_SESSION['cus_id'])) {
         <?php
 
             }
+        }
+
+        ?>
+
+        <?php
+
+        if (isset($_POST['editButton'])) {
+            header("Location: editUserImg.php?user_id={$_GET['id']}");
         }
 
         ?>

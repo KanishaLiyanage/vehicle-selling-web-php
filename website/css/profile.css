@@ -1,8 +1,10 @@
 .uImg{
     width: 200px;
     height: 200px;
+    margin-bottom: 10px;
     display: block;
     object-fit: contain;
+    border-radius: 100px;
 }
 
 .headerBtns{
@@ -11,6 +13,37 @@
     display: flex;
     justify-content: space-between;
 }
+
+.headerBtns a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button1 {
+    border: none;
+    color: white;
+    /* padding: 16px 32px; */
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    /* margin: 4px 2px; */
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #8c00ff;
+  }
+  
+  .button2:hover {
+    background-color: #8c00ff;
+    color: white;
+  }
 
 .cartBtn{
 
