@@ -1,0 +1,196 @@
+.gridContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 50px;
+
+}
+
+.linkedPage{
+    text-decoration: none;
+}
+
+.itemCard{
+    margin-left: 20px;
+    width: 260px;
+    height: 280px;
+    background-color: rgb(221, 233, 255);
+    border-radius: 25px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.itemCard:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.itemImage{
+    width: 250px;
+    height: 160px;
+    display: block;
+    object-fit: contain;
+
+}
+
+.itemName{
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    bottom: 5px;
+}
+
+.itemBrand{
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    bottom: 18px;
+}
+
+.itemPrice{
+    position: relative;
+    text-align: left;
+    bottom: 5px;
+    left: 15px;
+}
+
+.itemQty{
+    position: relative;
+    text-align: left;
+    bottom: 15px;
+    left: 15px;
+}
+
+.fa-shopping-cart{
+    color: DodgerBlue;
+    transition-duration: 0.4s;
+}
+
+.fa-shopping-cart:hover{
+    color: rgb(240, 68, 0);
+}
+
+.fa-heart{
+    color: DodgerBlue;
+    transition-duration: 0.4s;
+}
+
+.fa-heart:hover{
+    color: red;
+}
+
+.fa-trash-o{
+    color: DodgerBlue;
+    transition-duration: 0.4s;
+}
+
+.fa-trash-o:hover{
+    color: red;
+}
+
+.ordersTrashBtn{
+    color: DodgerBlue;
+    position: relative;
+    padding: 12px 16px; /* Some padding */
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 50px;
+    left: 155px;
+    transition-duration: 0.4s;
+}
+
+.favBtn{
+    position: relative;
+    /* background-color: DodgerBlue; Blue background */
+    background-color: transparent;
+    border: none; /* Remove borders */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 280px;
+    left: 155px;
+}
+
+.ordersFavBtn{
+    position: relative;
+    background-color: transparent;
+    border: none; /* Remove borders */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 260px;
+    left: 220px;
+}
+
+.cartFavBtn{
+    position: relative;
+    background-color: transparent;
+    border: none; /* Remove borders */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 280px;
+    left: 215px;
+}
+
+.cartBtn{
+    position: relative;
+    /* background-color: DodgerBlue; Blue background */
+    background-color: transparent;
+    border: none; /* Remove borders */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 240px;
+    left: 215px;
+}
+
+.cartRemoveBtn{
+    position: relative;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer; 
+    left: 175px;
+    bottom: 240px;
+    text-decoration: none;
+}
+
+.buyBtnBox{
+    position: relative;
+    width: 60px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: DodgerBlue;
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 45px;
+    left: 190px;
+    transition-duration: 0.4s;
+}
+
+.homeHeader{
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-left: 1140px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buyBtn{
+    position: relative;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer; 
+    left: 16px;
+    top: 2px;
+    text-decoration: none;
+}
+
+.buyBtnBox:hover{
+    background-color: orange;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.buyBtn:hover{
+    color: white;
+}

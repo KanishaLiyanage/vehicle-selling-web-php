@@ -1,0 +1,37 @@
+.gridContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 0px;
+    row-gap: 0px;
+}
+
+.gridContainer a{
+    text-decoration: none;
+}
+
+.gridContainer a p{
+    font-size: 40px;
+    color: black;
+}
+
+.gridContainer a img{
+    width: 150px;
+    height: 150px;
+    display: block;
+    object-fit: contain;
+}
+
+.gridContainer a div{
+    margin-left: 20px;
+    margin-bottom: 40px;
+    width: 400px;
+    height: 280px;
+    background-color: rgb(221, 233, 255);
+    border-radius: 25px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.gridContainer a div:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
