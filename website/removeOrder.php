@@ -18,7 +18,12 @@ if (!isset($_SESSION['cus_id'])) {
         echo "Updated Qty: ".$updated_qty;
 
         $delete = "UPDATE orders SET is_deleted = 1
-                   WHERE product_id = {$_GET['item_id']} AND customer_id = {$_SESSION['cus_id']}
+                   WHERE
+                   product_id = {$_GET['item_id']}
+                   AND
+                   customer_id = {$_SESSION['cus_id']}
+                   AND
+                   is_deleted = 0
                    LIMIT 1";
         
         $update_qty = "UPDATE products SET qty = '{$updated_qty}'

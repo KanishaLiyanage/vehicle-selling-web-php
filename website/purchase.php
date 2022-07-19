@@ -8,6 +8,7 @@ $p_id = " ";
 $c_id = " ";
 $t_price = " ";
 $c_qty = " ";
+$a_qty = " ";
 
 if (!isset($_SESSION['cus_id'])) {
     header('Location: landing_page.php');
@@ -50,21 +51,21 @@ if (isset($_GET['item_id'])) {
 
         while ($record = mysqli_fetch_array($result)) {
 
-            $id = $record['product_id'];
             $p_brand = $record['product_brand'];
             $p_name = $record['product_name'];
-            $p_qty = $record['qty'];
             $p_price = $record['price'];
 
             $_GET['p_price'] = $record['price'];
-            $prc = $_GET['p_price'];
+            $prc = $_GET['p_price']; //unit price
             $_GET['prd_id'] = $record['product_id'];
-            $prd_id = $_GET['prd_id'];
+            $prd_id = $_GET['prd_id']; //product id
+            $_GET['prd_u'] = $record['qty'];
+            $avl_qty = $_GET['prd_u']; //available units
 
     ?>
-            <p>Product ID: <?php echo $id; ?></p>
+            <p>Product ID: <?php echo $prd_id; ?></p>
             <p>Product: <?php echo $p_brand." - ".$p_name; ?></p>
-            <p>Availability: <?php echo $p_qty; ?> Items Available</p>
+            <p>Availability: <?php echo $avl_qty; ?> Items Available</p>
             <p>Unit Price: $<?php echo $p_price; ?></p>
 
     <?php
@@ -77,26 +78,31 @@ if (isset($_GET['item_id'])) {
     Quantity: <input type="number" min="1" name="qty" size="2" maxlength="3" placeholder="Qty" value="1" required>
         <input type="hidden" name="prc" value="<?php echo $prc; ?>">
         <input type="hidden" name="prd_id" value="<?php echo $prd_id; ?>">
-        <br> <br>
+        <input type="hidden" name="available_qty" value="<?php echo $avl_qty; ?>">
         <input type="submit" name="buy" value="Buy Now">
-        <input type="submit" name="cart" value="Add to Cart">
     </form>
 
     <?php
         
         if(isset($_POST['buy'])){
-            $c_qty = $_POST['qty'];
-            $p_price = mysqli_real_escape_string($connection, $_POST['prc']);
-            $prd_id = mysqli_real_escape_string($connection, $_POST['prd_id']);
-            $t_price = $p_price * $c_qty;
-            header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
-        }
 
-        if(isset($_POST['cart'])){
-            $c_qty = $_POST['qty'];
-            $prd_id = mysqli_real_escape_string($connection, $_POST['prd_id']);
-            $t_price = $p_price * $c_qty;
-            header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
+            $c_qty = mysqli_real_escape_string($connection, $_POST['qty']);
+            $a_qty = mysqli_real_escape_string($connection, $_POST['available_qty']); //available units
+            $p_price = mysqli_real_escape_string($connection, $_POST['prc']); //unit price
+            $prd_id = mysqli_real_escape_string($connection, $_POST['prd_id']); //product id
+
+            if($c_qty <= $a_qty){
+                $t_price = $p_price * $c_qty; //total price
+                header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
+            }else{
+                echo "<script>
+                      alert('You are exceeded the available quantity!');
+                      window.location.href='purchase.php?item_id={$prd_id}';
+                      </script>";
+            }
+
+        }else{
+            echo "post failed!";
         }
 
     ?>
