@@ -5,9 +5,8 @@
 <?php
 
 $p_id = " ";
-$c_id = " ";
-$t_price = " ";
-$o_qty = " ";
+$t_price = 0;
+$double_tprice = (double)$t_price;
 
 if (!isset($_SESSION['cus_id'])) {
     header('Location: landing_page.php');
@@ -25,6 +24,7 @@ if (!isset($_SESSION['cus_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders</title>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -92,6 +92,39 @@ if (!isset($_SESSION['cus_id'])) {
     }
 
 ?>
+
+<?php
+
+        $total_query = "SELECT
+                        orders.*,
+                        products.*
+                        FROM
+                        orders
+                        INNER JOIN products ON orders.product_id = products.product_id
+                        WHERE
+                        orders.customer_id = '{$_SESSION['cus_id']}' AND orders.is_deleted = 0";
+
+        $total_check = mysqli_query($connection, $total_query);
+
+        if($total_check){
+
+            while($price = mysqli_fetch_array($total_check)){
+
+                $u_price = $price['price'];
+                $o_price = $price['order_price'];
+
+                $double_uprice = (double)$o_price;
+
+                $double_tprice += $double_uprice;
+
+            }
+
+        }
+
+?>
+
+    <center> <p class="tPrice">Orders Total: $<?php echo $double_tprice; ?></p> </center>
+
 
 </body>
 

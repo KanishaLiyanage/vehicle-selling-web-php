@@ -41,7 +41,8 @@ if (!isset($_SESSION['cus_id'])) {
     $result = mysqli_query($connection, $query);
 
     if ($result) {
-        echo mysqli_num_rows($result) . " Records found!";
+
+        echo mysqli_num_rows($result) . " Cars Available <br>";
 
         if (mysqli_num_rows($result) > 0) { ?>
 
