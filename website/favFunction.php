@@ -18,25 +18,73 @@ if (isset($_GET['item_id'])) {
 
     echo "ID passed: " . $p_id . " of customer ID: " . $c_id . "<br>";
 
+    $checkquery = "SELECT * FROM favorites
+                   WHERE customer_id = '{$c_id}'
+                   AND
+                   product_id = '{$p_id}'
+                   AND
+                   favorites_count = 1
+                   AND
+                   is_deleted = 0";
 
-    $checkquery = "SELECT * FROM favorites WHERE customer_id = '{$c_id}' AND product_id = '{$p_id}'";
     $checking_result = mysqli_query($connection, $checkquery);
 
     if (mysqli_num_rows($checking_result) > 0) {
+
         echo "<script>alert(\"Product is already exists in your favorites!\")</script>";
         echo "<script>window.location='home.php'</script>";
+
     } else {
 
-        $fav_query = "INSERT INTO favorites (customer_id, product_id, favorites_count)
-              VALUES ('{$c_id}', '{$p_id}', 1) LIMIT 1";
+        $query1 = "SELECT * FROM favorites
+                   WHERE customer_id = '{$c_id}'
+                   AND
+                   product_id = '{$p_id}'
+                   AND
+                   favorites_count = 0
+                   AND
+                   is_deleted = 1";
 
-        $fav_result = mysqli_query($connection, $fav_query);
+        $result_query1 =  mysqli_query($connection, $query1);
 
-        if ($fav_result) {
-            header("location: home.php?added_to_favorites=successful!");
+        if(mysqli_num_rows($result_query1) > 0){
+
+            $fav_query1 = "UPDATE favorites
+                           SET favorites_count = 1, is_deleted = 0
+                           WHERE
+                           customer_id = '{$c_id}'
+                           AND
+                           product_id = '{$p_id}'
+                           AND
+                           favorites_count = 0
+                           AND
+                           is_deleted = 1
+                           LIMIT 1";
+            $fav_result1 = mysqli_query($connection, $fav_query1);
+            
+            if ($fav_result1) {
+                header("location: home.php?added_to_favorites=successful!");
+            }else{
+                echo "Failed!";
+            }
+
+        }else{
+
+            $fav_query2 = "INSERT INTO favorites (customer_id, product_id, favorites_count)
+                           VALUES ('{$c_id}', '{$p_id}', 1)
+                           LIMIT 1";
+            
+            $fav_result2 = mysqli_query($connection, $fav_query2);
+
+            if ($fav_result2) {
+                header("location: home.php?added_to_favorites=successful!");
+            }else{
+                echo "Failed!";
+            }
+
         }
-    }
 
+    }
 
 } else {
     echo "Failed to passed ID!";

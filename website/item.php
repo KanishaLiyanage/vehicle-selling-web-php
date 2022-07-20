@@ -29,6 +29,7 @@ if (!isset($_GET['item_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/item.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -53,22 +54,24 @@ if (!isset($_GET['item_id'])) {
                 $avl_qty = $_GET['prd_u']; //available units
 
         ?>
-
-                <p style="font-size:35px">
-                    <?php echo $record['product_brand']." ".$record['product_name'] ?>
-                    <a href="favFunction.php?item_id=<?=$_GET['p_id']?>">
-                    <i class="fa fa-heart" style="font-size:35px;color:red"> </i>
-                    </a>
+                <div>
+                <p style="font-size:35px"> 
+                    <?php echo $record['product_brand']." ".$record['product_name']?>
+                <a href="favFunction.php?item_id=<?=$_GET['item_id']?>">
+                    <i class="fa fa-heart" style="font-size:30px"> </i>
+                </a>
                 </p>
-                    <img class="itemImage" src="../assets/uploads/products/<?php echo $record['product_img'];?>" alt="<?php echo $record['product_name'];?>" >
-                
+                </div>
+
+                <div>
+                <img class="itemImage" src="../assets/uploads/products/<?php echo $record['product_img'];?>" alt="<?php echo $record['product_name'];?>" >
+                </div>
+
                 <div class="itemInfo">
-                
                     <p>Brand: <?php echo $record['product_brand'] ?></p>
                     <p>Name: <?php echo $record['product_name'] ?></p>
                     <p>Price: $<?php echo $record['price'] ?></p>
                     <p>Availability: <?php echo $record['qty'] ?> items available</p>
-
                 </div>
 
                 <div class="itemDesc">

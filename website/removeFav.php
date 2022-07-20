@@ -9,10 +9,14 @@ if (!isset($_SESSION['cus_id'])) {
     if(isset($_GET['item_id'])){
         echo "ID Passed!";
 
-        $delete = "UPDATE favorites SET is_deleted = 1
-                   WHERE product_id = {$_GET['item_id']} AND customer_id = {$_SESSION['cus_id']}
+        $delete = "UPDATE favorites
+                   SET
+                   favorites_count = 0, is_deleted = 1
+                   WHERE
+                   product_id = {$_GET['item_id']}
+                   AND
+                   customer_id = {$_SESSION['cus_id']}
                    LIMIT 1";
-                   
 
         $result = mysqli_query($connection, $delete);
 

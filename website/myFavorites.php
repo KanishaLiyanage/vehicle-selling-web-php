@@ -42,7 +42,9 @@ if (!isset($_SESSION['cus_id'])) {
         favorites
         INNER JOIN products ON favorites.product_id = products.product_id
         WHERE
-        favorites.customer_id = '{$_SESSION['cus_id']}' AND favorites.is_deleted = 0";
+        favorites.customer_id = '{$_SESSION['cus_id']}'
+        AND
+        favorites.is_deleted = 0";
 
     $result = mysqli_query($connection, $fav_query);
 
