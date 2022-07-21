@@ -7,6 +7,8 @@
 $p_id = " ";
 $c_id = " ";
 $t_price = " ";
+$p_dis = " ";
+$t_disAdded = " ";
 $c_qty = " ";
 $a_qty = " ";
 
@@ -53,10 +55,11 @@ if (isset($_GET['item_id'])) {
 
             $p_brand = $record['product_brand'];
             $p_name = $record['product_name'];
-            $p_price = $record['price'];
 
             $_GET['p_price'] = $record['price'];
             $prc = $_GET['p_price']; //unit price
+            $_GET['dis'] = $record['discount'];
+            $p_dis = $_GET['dis'];
             $_GET['prd_id'] = $record['product_id'];
             $prd_id = $_GET['prd_id']; //product id
             $_GET['prd_u'] = $record['qty'];
@@ -66,7 +69,13 @@ if (isset($_GET['item_id'])) {
             <p>Product ID: <?php echo $prd_id; ?></p>
             <p>Product: <?php echo $p_brand." - ".$p_name; ?></p>
             <p>Availability: <?php echo $avl_qty; ?> Items Available</p>
-            <p>Unit Price: $<?php echo $p_price; ?></p>
+            <p>Unit Price: $<?php echo $prc; ?></p>
+            <?php
+                if($p_dis > 0){ ?>
+                    <p>Discount: <?php echo $p_dis ?>%</p>
+                    <?php
+                }
+            ?>
 
     <?php
         }
@@ -77,6 +86,7 @@ if (isset($_GET['item_id'])) {
     <form action="purchase.php" method="POST">
     Quantity: <input type="number" min="1" name="qty" size="2" maxlength="3" placeholder="Qty" value="1" required>
         <input type="hidden" name="prc" value="<?php echo $prc; ?>">
+        <input type="hidden" name="discount" value="<?php echo $p_dis ?>" >
         <input type="hidden" name="prd_id" value="<?php echo $prd_id; ?>">
         <input type="hidden" name="available_qty" value="<?php echo $avl_qty; ?>">
         <input type="submit" name="buy" value="Buy Now">
@@ -89,11 +99,18 @@ if (isset($_GET['item_id'])) {
             $c_qty = mysqli_real_escape_string($connection, $_POST['qty']);
             $a_qty = mysqli_real_escape_string($connection, $_POST['available_qty']); //available units
             $p_price = mysqli_real_escape_string($connection, $_POST['prc']); //unit price
+            $discount = mysqli_real_escape_string($connection, $_POST['discount']);
             $prd_id = mysqli_real_escape_string($connection, $_POST['prd_id']); //product id
 
             if($c_qty <= $a_qty){
-                $t_price = $p_price * $c_qty; //total price
-                header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
+                if($discount > 0){
+                    $t_disAdded = $p_price * ($discount/100) ;
+                    $t_price = ($p_price - $t_disAdded) * $c_qty; //total discounted price
+                    header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&discounted={$t_disAdded}&qty={$c_qty}");
+                }else{
+                    $t_price = $p_price * $c_qty; //total price
+                    header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
+                }
             }else{
                 echo "<script>
                       alert('You are exceeded the available quantity!');

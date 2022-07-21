@@ -65,7 +65,13 @@ if (!isset($_SESSION['cus_id'])) {
                 <p class="p">ID: <?php echo $record['product_id'] ?></p>
                 <p class="p1"><?php echo $record['product_brand'] ?></p>
                 <p class="p2"><?php echo $record['product_name'] ?></p>
-                <p class="p3"><?php echo "$" . $record['price'] ?></p>
+                <p class="p3">Unit Price: <?php echo "$" . $record['price'] ?></p>
+                <?php
+                if(isset($_GET['discounted'])){ ?>
+                    <p class="p3">Discount: <?php echo "$" . $_GET['discounted'] ?></p>
+                <?php
+                }
+                ?>
                 <p class="p4"><?php echo $o_qty ?> Units Placed</p>
                 <p class="p4">Total Price: $<?php echo $t_price ?></p>
             </div>
