@@ -57,7 +57,7 @@ if (!isset($_GET['item_id'])) {
                 <div>
                 <p style="font-size:35px"> 
                     <?php echo $record['product_brand']." ".$record['product_name']?>
-                <a href="favFunction.php?item_id=<?=$_GET['item_id']?>">
+                <a href="favFunction.php?productId=<?=$_GET['item_id']?>">
                     <i class="fa fa-heart" style="font-size:30px"> </i>
                 </a>
                 </p>
