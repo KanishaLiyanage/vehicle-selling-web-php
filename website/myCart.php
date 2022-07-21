@@ -68,8 +68,21 @@ if (!isset($_SESSION['cus_id'])) {
                                 <img class="itemImage" src="../assets/uploads/products/<?= $record['product_img'] ?>" alt="<?= $record['product_img'] ?>">
 
                                 <p class="itemName"><?php echo $record['product_brand']." ".$record['product_name'] ?></p>
-                                <p class="itemPrice"><strong> $<?php echo $record['price'] ?> </strong></p>
-                                <p class="itemQty"><?php echo $record['qty'] ?> Units Available</p>
+                                <p class="itemPrice">
+                                    <strong> $<?php echo $record['price'] ?> </strong>
+                                    <?php
+                                        if($record['discount'] > 0){
+                                            ?>  <div class="discount">
+                                                <strong><?php echo $record['discount'] ?>% OFF</strong>
+                                                </div>
+                                                <p class="itemQtyDis"><?php echo $record['qty'] ?> Items Available</p>
+                                            <?php
+                                        }else{ ?>
+                                            <p class="itemQty"><?php echo $record['qty'] ?> Items Available</p>
+                                            <?php
+                                        }
+                                    ?>
+                                </p>
 
                             </div>
 
