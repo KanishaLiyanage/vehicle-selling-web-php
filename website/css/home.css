@@ -53,10 +53,30 @@
     left: 15px;
 }
 
+.discount{
+    position: relative;
+    bottom: 42px;
+    left: 75px;
+}
+
+.discount strong{
+    margin: 5px;
+    font-size: 20px;
+    background-color: red;
+    color: white;
+}
+
+.itemQtyDis{
+    position: relative;
+    text-align: left;
+    bottom: 45px;
+    left: 15px;
+}
+
 .itemQty{
     position: relative;
     text-align: left;
-    bottom: 15px;
+    bottom: 12px;
     left: 15px;
 }
 

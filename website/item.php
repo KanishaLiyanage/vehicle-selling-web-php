@@ -28,7 +28,6 @@ if (!isset($_GET['item_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
-    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/item.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -70,7 +69,16 @@ if (!isset($_GET['item_id'])) {
                 <div class="itemInfo">
                     <p>Brand: <?php echo $record['product_brand'] ?></p>
                     <p>Name: <?php echo $record['product_name'] ?></p>
-                    <p>Price: $<?php echo $record['price'] ?></p>
+                    <p>Price: $<?php echo $record['price'] ?>
+                    <?php
+                        if($record['discount'] > 0){
+                            ?>  <div class="discount">
+                                <strong><?php echo $record['discount'] ?>% OFF</strong>
+                                </div>
+                            <?php
+                        }
+                    ?>
+                    </p>
                     <p>Availability: <?php echo $record['qty'] ?> items available</p>
                 </div>
 

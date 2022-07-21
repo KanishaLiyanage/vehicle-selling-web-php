@@ -35,7 +35,7 @@ if (!isset($_SESSION['cus_id'])) {
    
     <?php
 
-    $query = "SELECT* FROM products
+    $query = "SELECT * FROM products
               WHERE is_deleted = 0  AND qty > 0";
 
     $result = mysqli_query($connection, $query);
@@ -62,8 +62,23 @@ if (!isset($_SESSION['cus_id'])) {
                                 <img class="itemImage" src="../assets/uploads/products/<?php echo $record['product_img'];?>" alt="<?php echo $record['product_name'];?>" >
 
                                 <p class="itemName"><?php echo $record['product_brand']." ".$record['product_name'] ?></p>
-                                <p class="itemPrice"><strong> $<?php echo $record['price'] ?> </strong></p>
-                                <p class="itemQty"><?php echo $record['qty'] ?> Items Available</p>
+                                <p class="itemPrice">
+                                    <strong> $<?php echo $record['price'] ?> </strong>
+                                    <?php
+
+                                        if($record['discount'] > 0){
+                                            ?>  <div class="discount">
+                                                <strong><?php echo $record['discount'] ?>% OFF</strong>
+                                                </div>
+                                                <p class="itemQtyDis"><?php echo $record['qty'] ?> Items Available</p>
+                                            <?php
+                                        }else{ ?>
+                                            <p class="itemQty"><?php echo $record['qty'] ?> Items Available</p>
+                                            <?php
+                                        }
+
+                                    ?>
+                                </p>
 
                             </div>
 
