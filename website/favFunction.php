@@ -107,7 +107,7 @@ else if(isset($_GET['productId'])){
 
     if (mysqli_num_rows($checking_result) > 0) {
         echo "<script>alert(\"Product is already exists in your favorites!\")</script>";
-        echo "<script>window.location='item.php'</script>";
+        echo "<script>window.location='myFavorites.php'</script>";
 
     } else {
 
@@ -138,7 +138,7 @@ else if(isset($_GET['productId'])){
             $fav_result1 = mysqli_query($connection, $fav_query1);
             
             if ($fav_result1) {
-                header("location: item.php?added_to_favorites=successful!");
+                header("location: myFavorites.php?added_to_favorites=successful!");
             }else{
                 echo "Failed!";
             }
@@ -152,7 +152,7 @@ else if(isset($_GET['productId'])){
             $fav_result2 = mysqli_query($connection, $fav_query2);
 
             if ($fav_result2) {
-                header("location: item.php?added_to_favorites=successful!");
+                header("location: myFavorites.php?added_to_favorites=successful!");
             }else{
                 echo "Failed!";
             }
