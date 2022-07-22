@@ -18,23 +18,44 @@ if (!isset($_SESSION['cus_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-    <link rel="stylesheet" href="contact.php">
+    <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
-    <center>
-        <form action="contact.php" method="POST" class="emailForm">
-            To <input type="text" name="to" required>
-            <br>
-            Subject <input type="text" name="subject" required>
-            <br>
-            Body <textarea name="body" rows="20" cols="80" required></textarea>
-            <br>
-            <input type="submit" name="Send" required>
-        </form>
-    </center>
+    <div class="contact-container">
+        
+        <div class="left-col">
+            <img class="logo" src="#" />
+        </div>
+
+        <div class="right-col">
+            <!-- <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <div class="description">Dark Mode</div>
+            </div> -->
+
+            <h1>Contact us</h1>
+            <p>If you willing to contact us, send us an email.</p>
+
+            <form id="contact-form" method="post">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Your Subject" required>
+                <label for="message">Message</label>
+                <textarea rows="6" placeholder="Your Message" id="message" name="message" required></textarea>
+                <button type="submit" id="submit" name="submit">Send</button>
+
+            </form>
+            <div id="error"></div>
+            <div id="success-msg"></div>
+        </div>
+    </div>
 
 </body>
 
