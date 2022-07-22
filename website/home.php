@@ -29,6 +29,7 @@ if (!isset($_SESSION['cus_id'])) {
         <p><a href="myOrders.php"> My Orders </a></p>
         <p><a href="myCart.php"> My Cart </a></p>
         <p><a href="myFavorites.php"> Favorites </a></p>
+        <p><a href="contact.php"> Contact Us </a></p>
     </div>
 
     <center> <h1>Home Page</h1> </center>
