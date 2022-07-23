@@ -39,10 +39,11 @@ if (isset($_POST['submit']) && isset($_FILES['image'])) {
                 $pbrand = mysqli_real_escape_string($connection, $_POST['product_brand']);
                 $pname = mysqli_real_escape_string($connection, $_POST['product_name']);
                 $price = mysqli_real_escape_string($connection, $_POST['product_price']);
+                $discount = mysqli_real_escape_string($connection, $_POST['product_discount']);
                 $pdesc = mysqli_real_escape_string($connection, $_POST['product_description']);
                 $pqty = mysqli_real_escape_string($connection, $_POST['product_qty']);
             
-                $query = "INSERT INTO products(product_brand, product_name, price, product_description, qty, product_img) VALUES ('{$pbrand}', '{$pname}','{$price}','{$pdesc}','{$pqty}','{$new_img_name}')";
+                $query = "INSERT INTO products(product_brand, product_name, price, discount, product_description, qty, product_img) VALUES ('{$pbrand}', '{$pname}','{$price}', '{$discount}', '{$pdesc}','{$pqty}','{$new_img_name}')";
             
                 $result = mysqli_query($connection, $query);
             
@@ -84,6 +85,8 @@ if (isset($_POST['submit']) && isset($_FILES['image'])) {
         Product Name: <input type="text" name="product_name" maxlength="50" required>
         <br>
         Product Price: <input type="text" name="product_price" required>
+        <br>
+        Product Discount: <input type="text" name="product_discount" required>
         <br>
         Product Description: <textarea name="product_description" rows="4" cols="50" required></textarea>
         <br>

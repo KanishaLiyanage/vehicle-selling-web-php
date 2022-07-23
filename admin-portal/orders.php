@@ -12,13 +12,22 @@
     $orderTable .= "<tr>
                     <th> Order ID </th>
                     <th> Customer ID </th>
+                    <th> Customer User Name </th>
                     <th> Product ID </th>
+                    <th> Product </th>
                     <th> Order Placed Date </th>
                     <th> Number of Units Ordered </th>
                     <th> Total Price </th>
                     </tr>";
 
-    $query = "SELECT * FROM orders";
+    $query = "SELECT orders.*, customers.*, products.*
+              FROM
+              orders
+              INNER JOIN products
+              ON orders.product_id = products.product_id
+              INNER JOIN customers
+              ON orders.customer_id = customers.customer_id
+              ORDER BY orders.order_id ASC";
 
         $result = mysqli_query($connection, $query);
 
@@ -29,7 +38,9 @@
                     $orderTable .= "<tr>";
                     $orderTable .= "<td>" . $record['order_id'] . "</td>";
                     $orderTable .= "<td>" . $record['customer_id'] . "</td>";
+                    $orderTable .= "<td>" . $record['username'] . "</td>";
                     $orderTable .= "<td>" . $record['product_id'] . "</td>";
+                    $orderTable .= "<td>" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
                     $orderTable .= "<td>" . $record['created_time'] . "</td>";
                     $orderTable .= "<td>" . $record['order_qty'] . "</td>";
                     $orderTable .= "<td>" . "$". $record['order_price'] . "</td>";
