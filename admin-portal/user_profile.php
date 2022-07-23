@@ -16,16 +16,16 @@ if (!isset($_GET['user_id'])) {
 
 <?php
 
-$orderTable = "<table border=\"1\" cellpadding=\"20\" cellspacing=\"0\">";
+$orderTable = "<table class=\"table-fill1\">";
 
 $orderTable .= "<tr>
-                <th> Order ID </th>
-                <th> Product ID </th>
-                <th> Product </th>
-                <th> Units Ordered </th>
-                <th> Total Price </th>
-                <th> Order Placed Date </th>
-                <th> Shipping Status </th>
+                <th class=\"text-left\"> Order ID </th>
+                <th class=\"text-left\"> Product ID </th>
+                <th class=\"text-left\"> Product </th>
+                <th class=\"text-left\"> Units Ordered </th>
+                <th class=\"text-left\"> Total Price </th>
+                <th class=\"text-left\"> Order Placed Date </th>
+                <th class=\"text-left\"> Shipping Status </th>
                 </tr>";
 
 $query = "SELECT orders.*, customers.*, products.*
@@ -44,14 +44,16 @@ $query = "SELECT orders.*, customers.*, products.*
 
         while ($record = mysqli_fetch_array($result)) {
 
+                $orderTable .= "<tbody class=\"table-hover\">";
                 $orderTable .= "<tr>";
-                $orderTable .= "<td>" . $record['order_id'] . "</td>";
-                $orderTable .= "<td>" . $record['product_id'] . "</td>";
-                $orderTable .= "<td>" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
-                $orderTable .= "<td>" . $record['order_qty'] . "</td>";
-                $orderTable .= "<td>" . "$". $record['order_price'] . "</td>";
-                $orderTable .= "<td>" . $record['created_time'] . "</td>";
+                $orderTable .= "<td class=\"text-left\">" . $record['order_id'] . "</td>";
+                $orderTable .= "<td class=\"text-left\">" . $record['product_id'] . "</td>";
+                $orderTable .= "<td class=\"text-left\">" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
+                $orderTable .= "<td class=\"text-left\">" . $record['order_qty'] . "</td>";
+                $orderTable .= "<td class=\"text-left\">" . "$". $record['order_price'] . "</td>";
+                $orderTable .= "<td class=\"text-left\">" . $record['created_time'] . "</td>";
                 $orderTable .= "</tr>";
+                $orderTable .= "</tbody>";
     
         }
 
@@ -71,6 +73,7 @@ $query = "SELECT orders.*, customers.*, products.*
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link rel="stylesheet" href="css/user_profile.css">
+    <link rel="stylesheet" href="css/tables.css">
 </head>
 
 <body>
