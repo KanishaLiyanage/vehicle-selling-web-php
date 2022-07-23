@@ -30,14 +30,14 @@
 
             <a href="items_list.php">
                 <div>
-                    <p>Browse Items</p>
+                    <p>Products List</p>
                     <img src="../assets/icons/browse.png">
                 </div>
 
             </a>
             <a href="add_items.php">
                 <div>
-                <p>Add Items</p>
+                <p>Add Products</p>
                 <img src="../assets/icons/add.png">
                 </div>
             </a>
