@@ -18,21 +18,25 @@ $products = mysqli_query($connection, $query);
 
 if ($products) {
     while ($product = mysqli_fetch_assoc($products)) {
+
         $_GET['product_id'] = $product['product_id'];
         $_GET['product_brand'] = $product['product_brand'];
         $_GET['product_name'] = $product['product_name'];
+
+        $product_list .= "<tbody class=\"table-hover\">";
         $product_list .= "<tr>";
-        $product_list .= "<td> {$product['product_id']} </td>";
-        $product_list .= "<td> {$product['product_brand']} </td>";
-        $product_list .= "<td> {$product['product_name']} </td>";
-        $product_list .= "<td> {$product['price']} </td>";
-        $product_list .= "<td> {$product['qty']} </td>";
-        $product_list .= "<td> {$product['purchases']} </td>";
-        $product_list .= "<td> {$product['ratings']} </td>";
-        $product_list .= "<td> <a href=\"item.php?item_id={$_GET['product_id']}&item_brand={$_GET['product_brand']}&item_name={$_GET['product_name']}\"> go to this product </a> </td>";
-        $product_list .= "<td> <a href=\"components/delete_item.php?item_id={$product['product_id']}\" onclick = \"return confirm('Are you sure to delete?');\"> Delete </a> </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['product_id']} </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['product_brand']} </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['product_name']} </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['price']} </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['qty']} </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['purchases']} </td>";
+        $product_list .= "<td class=\"text-left\"> {$product['ratings']} </td>";
+        $product_list .= "<td class=\"text-left\"> <a href=\"item.php?item_id={$_GET['product_id']}&item_brand={$_GET['product_brand']}&item_name={$_GET['product_name']}\"> go to this product </a> </td>";
+        $product_list .= "<td class=\"text-left\"> <a href=\"components/delete_item.php?item_id={$product['product_id']}\" onclick = \"return confirm('Are you sure to delete?');\"> Delete </a> </td>";
         //item_id is the parameter passing linked page
         $product_list .= "</tr>";
+        $product_list .= "</tbody>";
     }
 } else {
     echo "DB Failed!";
@@ -48,33 +52,35 @@ if ($products) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item List</title>
+    <link rel="stylesheet" href="css/tables.css">
 </head>
 
 <body>
-    <h1>Item List</h1>
+    <div class="table-title">
+        <h3>Products List</h3>
+    </div>
     <a href="add_items.php" style="text-decoration: none; font-size: 20px;">add items+</a>
 
     <hr>
-    <center>
-    <table border="1" cellpadding="20" cellspacing="0">
+
+    <table class="table-fill">
         <tr>
-            <th>Product ID</th>
-            <th>Product Brand</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <!-- <th>Description</th> -->
-            <th>Quantity</th>
-            <!-- <th>Image</th> -->
-            <th>Purchases</th>
-            <th>Ratings</th>
-            <th>Modify Product</th>
-            <th>Remove</th>
+            <th class="text-left">Product ID</th>
+            <th class="text-left">Product Brand</th>
+            <th class="text-left">Product Name</th>
+            <th class="text-left">Price</th>
+            <!-- <th class="text-left">Description</th> -->
+            <th class="text-left">Quantity</th>
+            <!-- <th class="text-left">Image</th> -->
+            <th class="text-left">Purchases</th>
+            <th class="text-left">Ratings</th>
+            <th class="text-left">Modify Product</th>
+            <th class="text-left">Remove</th>
         </tr>
         <tr>
             <?php echo $product_list; ?>
         </tr>
     </table>
-    </center>
 
 </body>
 

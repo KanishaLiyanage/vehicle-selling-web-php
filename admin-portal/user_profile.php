@@ -16,9 +16,9 @@ if (!isset($_GET['user_id'])) {
 
 <?php
 
-$orderTable = "<table class=\"table-fill1\">";
+$userTable = "<table class=\"table-fill1\">";
 
-$orderTable .= "<tr>
+$userTable .= "<tr>
                 <th class=\"text-left\"> Order ID </th>
                 <th class=\"text-left\"> Product ID </th>
                 <th class=\"text-left\"> Product </th>
@@ -44,20 +44,20 @@ $query = "SELECT orders.*, customers.*, products.*
 
         while ($record = mysqli_fetch_array($result)) {
 
-                $orderTable .= "<tbody class=\"table-hover\">";
-                $orderTable .= "<tr>";
-                $orderTable .= "<td class=\"text-left\">" . $record['order_id'] . "</td>";
-                $orderTable .= "<td class=\"text-left\">" . $record['product_id'] . "</td>";
-                $orderTable .= "<td class=\"text-left\">" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
-                $orderTable .= "<td class=\"text-left\">" . $record['order_qty'] . "</td>";
-                $orderTable .= "<td class=\"text-left\">" . "$". $record['order_price'] . "</td>";
-                $orderTable .= "<td class=\"text-left\">" . $record['created_time'] . "</td>";
-                $orderTable .= "</tr>";
-                $orderTable .= "</tbody>";
+                $userTable .= "<tbody class=\"table-hover\">";
+                $userTable .= "<tr>";
+                $userTable .= "<td class=\"text-left\">" . $record['order_id'] . "</td>";
+                $userTable .= "<td class=\"text-left\">" . $record['product_id'] . "</td>";
+                $userTable .= "<td class=\"text-left\">" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
+                $userTable .= "<td class=\"text-left\">" . $record['order_qty'] . "</td>";
+                $userTable .= "<td class=\"text-left\">" . "$". $record['order_price'] . "</td>";
+                $userTable .= "<td class=\"text-left\">" . $record['created_time'] . "</td>";
+                $userTable .= "</tr>";
+                $userTable .= "</tbody>";
     
         }
 
-        $orderTable .= "</table>";
+        $userTable .= "</table>";
 
     }
 
@@ -110,7 +110,7 @@ $query = "SELECT orders.*, customers.*, products.*
                 <p>Country: <?php echo $record['country'] ?> </p>
                 <p>Last Login: <?php echo $record['last_login'] ?> </p>
 
-                <?php echo $orderTable; ?>
+                <?php echo $userTable; ?>
 
                 <?php
 
