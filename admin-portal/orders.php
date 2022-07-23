@@ -15,9 +15,10 @@
                     <th> Customer User Name </th>
                     <th> Product ID </th>
                     <th> Product </th>
-                    <th> Order Placed Date </th>
-                    <th> Number of Units Ordered </th>
+                    <th> Units Ordered </th>
                     <th> Total Price </th>
+                    <th> Order Placed Date </th>
+                    <th> Shipping Status </th>
                     </tr>";
 
     $query = "SELECT orders.*, customers.*, products.*
@@ -38,12 +39,12 @@
                     $orderTable .= "<tr>";
                     $orderTable .= "<td>" . $record['order_id'] . "</td>";
                     $orderTable .= "<td>" . $record['customer_id'] . "</td>";
-                    $orderTable .= "<td>" . $record['username'] . "</td>";
+                    $orderTable .= "<td>" . "<a href=\"user_profile.php?user_id={$record['customer_id']}\"> " . $record['username'] . "</a>" . "</td>";
                     $orderTable .= "<td>" . $record['product_id'] . "</td>";
                     $orderTable .= "<td>" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
-                    $orderTable .= "<td>" . $record['created_time'] . "</td>";
                     $orderTable .= "<td>" . $record['order_qty'] . "</td>";
                     $orderTable .= "<td>" . "$". $record['order_price'] . "</td>";
+                    $orderTable .= "<td>" . $record['created_time'] . "</td>";
                     $orderTable .= "</tr>";
         
             }

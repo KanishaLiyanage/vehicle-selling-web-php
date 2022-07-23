@@ -14,6 +14,53 @@ if (!isset($_GET['user_id'])) {
 
 ?>
 
+<?php
+
+$orderTable = "<table border=\"1\" cellpadding=\"20\" cellspacing=\"0\">";
+
+$orderTable .= "<tr>
+                <th> Order ID </th>
+                <th> Product ID </th>
+                <th> Product </th>
+                <th> Units Ordered </th>
+                <th> Total Price </th>
+                <th> Order Placed Date </th>
+                <th> Shipping Status </th>
+                </tr>";
+
+$query = "SELECT orders.*, customers.*, products.*
+          FROM
+          orders
+          INNER JOIN products
+          ON orders.product_id = products.product_id
+          INNER JOIN customers
+          ON orders.customer_id = customers.customer_id
+          WHERE orders.customer_id = '{$_GET['user_id']}'
+          ORDER BY orders.order_id ASC";
+
+    $result = mysqli_query($connection, $query);
+
+    if ($result) {
+
+        while ($record = mysqli_fetch_array($result)) {
+
+                $orderTable .= "<tr>";
+                $orderTable .= "<td>" . $record['order_id'] . "</td>";
+                $orderTable .= "<td>" . $record['product_id'] . "</td>";
+                $orderTable .= "<td>" . $record['product_brand'] ." ". $record['product_name'] ."</td>";
+                $orderTable .= "<td>" . $record['order_qty'] . "</td>";
+                $orderTable .= "<td>" . "$". $record['order_price'] . "</td>";
+                $orderTable .= "<td>" . $record['created_time'] . "</td>";
+                $orderTable .= "</tr>";
+    
+        }
+
+        $orderTable .= "</table>";
+
+    }
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +106,8 @@ if (!isset($_GET['user_id'])) {
                 <p>Province: <?php echo $record['province'] ?> </p>
                 <p>Country: <?php echo $record['country'] ?> </p>
                 <p>Last Login: <?php echo $record['last_login'] ?> </p>
+
+                <?php echo $orderTable; ?>
 
                 <?php
 
