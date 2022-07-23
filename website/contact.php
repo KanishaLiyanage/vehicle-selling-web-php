@@ -42,7 +42,7 @@ if (!isset($_SESSION['cus_id'])) {
             <h1>Contact us</h1>
             <p>If you willing to contact us, send us an email.</p>
 
-            <form id="contact-form" method="post">
+            <form action="contact.php" id="contact-form" method="post">
                 <label for="name">Full name</label>
                 <input type="text" id="name" name="name" placeholder="Your Name" required>
                 <label for="subject">Subject</label>
