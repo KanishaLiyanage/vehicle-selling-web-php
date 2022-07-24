@@ -6,14 +6,13 @@
 
 $p_id = " ";
 $t_price = 0;
-$double_tprice = (double)$t_price;
+$double_tprice = (float)$t_price;
 
 if (!isset($_SESSION['cus_id'])) {
     header('Location: landing_page.php');
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,18 +24,19 @@ if (!isset($_SESSION['cus_id'])) {
     <title>My Cart</title>
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/itemCard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
     <center>
-    <h1>My Cart</h1>
+        <h1>My Cart</h1>
     </center>
 
     <?php
 
-            $cart_query = "SELECT
+    $cart_query = "SELECT
             cart.*,
             products.*
             FROM
@@ -59,83 +59,82 @@ if (!isset($_SESSION['cus_id'])) {
                     $_GET['p_id'] = $record['product_id'];
 
                 ?>
-                    <div>
 
+                    <div class="product-card">
                         <a class="linkedPage" href="item.php?item_id=<?= $_GET['p_id'] ?>">
+                            <?php
+                            if ($record['discount'] > 0) {
+                            ?> <div class="badge">
+                                    <strong><?php echo $record['discount'] ?>% OFF</strong>
+                                </div>
+                            <?php
+                            }
+                            ?>
 
-                            <div class="itemCard">
-
-                                <img class="itemImage" src="../assets/uploads/products/<?= $record['product_img'] ?>" alt="<?= $record['product_img'] ?>">
-
-                                <p class="itemName"><?php echo $record['product_brand']." ".$record['product_name'] ?></p>
-                                <p class="itemPrice">
-                                    <strong> $<?php echo $record['price'] ?> </strong>
-                                    <?php
-                                        if($record['discount'] > 0){
-                                            ?>  <div class="discount">
-                                                <strong><?php echo $record['discount'] ?>% OFF</strong>
-                                                </div>
-                                                <p class="itemQtyDis"><?php echo $record['qty'] ?> Items Available</p>
-                                            <?php
-                                        }else{ ?>
-                                            <p class="itemQty"><?php echo $record['qty'] ?> Items Available</p>
-                                            <?php
-                                        }
-                                    ?>
-                                </p>
-
+                            <div class="product-tumb">
+                                <img class="itemImage" src="../assets/uploads/products/<?php echo $record['product_img']; ?>" alt="<?php echo $record['product_name']; ?>">
                             </div>
-
+                            <div class="product-details">
+                                <span class="product-catagory"><?php echo $record['product_brand'] ?></span>
+                                <div class="buyBtnBox"> <a class="buyBtn" href="purchase.php?item_id=<?= $_GET['p_id'] ?>"> Buy </a> </div>
+                                <h4>
+                                    <p><?php echo $record['product_brand'] . " " . $record['product_name'] ?></p>
+                                </h4>
+                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p> -->
+                                <p><?php echo $record['qty'] ?> Items Available</p>
+                                <div class="product-bottom-details">
+                                    <div class="product-price">$<?php echo $record['price'] ?></div>
+                                    <div class="product-links">
+                                        <a href="favFunction.php?item_id=<?= $_GET['p_id'] ?>"><i class="fa fa-heart"></i></a>
+                                        <a href="removeCart.php?item_id=<?= $_GET['p_id'] ?>"> <i class="fa fa-trash-o"></i> </a>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
-                        
-                        <div class="buyBtnBox"> <a class="buyBtn" href="purchase.php?item_id=<?=$_GET['p_id']?>"> Buy </a> </div>
-                        <a class="cartFavBtn" href="./favFunction.php?item_id=<?=$_GET['p_id']?>"> <i class="fa fa-heart" style="font-size:25px"> </i> </a>
-                        <a class="cartRemoveBtn" href="removeCart.php?item_id=<?=$_GET['p_id']?>"> <i class="fa fa-trash-o" style="font-size:25px"></i> </a>
-
                     </div>
 
                 <?php } ?>
 
-        </div>
+            </div>
 
-    <?php }
+        <?php }
     } else {
         echo "DB failed!";
     }
 
-?>
-
+    ?>
 
     <?php
 
-        $total_query = "SELECT
+    $total_query = "SELECT
                         cart.*,
                         products.*
                         FROM
                         cart
                         INNER JOIN products ON cart.product_id = products.product_id
                         WHERE
-                        cart.customer_id = '{$_SESSION['cus_id']}' AND cart.is_deleted = 0";
+                        cart.customer_id = '{$_SESSION['cus_id']}'
+                        AND cart.is_deleted = 0";
 
-        $total_check = mysqli_query($connection, $total_query);
+    $total_check = mysqli_query($connection, $total_query);
 
-        if($total_check){
+    if ($total_check) {
 
-            while($price = mysqli_fetch_array($total_check)){
+        while ($price = mysqli_fetch_array($total_check)) {
 
-                $u_price = $price['price'];
+            $u_price = $price['price'];
 
-                $double_uprice = (double)$u_price;
+            $double_uprice = (float)$u_price;
 
-                $double_tprice += $double_uprice;
-
-            }
-
+            $double_tprice += $double_uprice;
         }
+    }
 
     ?>
 
-        <center> <p class="tPrice">Cart Total: $<?php echo $double_tprice; ?></p> </center>
+    <center>
+        <p class="tPrice">Cart Total: $<?php echo $double_tprice; ?></p>
+    </center>
 
 </body>
 

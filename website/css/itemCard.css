@@ -15,12 +15,32 @@ a
 {
     text-decoration: none;
 }
+
+.gridContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 0px;
+    row-gap: 0px;
+
+}
+
+.linkedPage{
+    text-decoration: none;
+}
+
 .product-card {
-    width: 330px;
+    width: 300px;
     position: relative;
     box-shadow: 0 2px 7px #dfdfdf;
-    margin: 50px auto;
+    /* margin: 50px auto; */
+    margin: 10px;
     background: #fafafa;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.product-card:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.01),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .badge {
@@ -39,8 +59,8 @@ a
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 180px;
-    padding: 20px;
+    height: 150px;
+    padding: 10px;
     background: #f0f0f0;
 }
 
@@ -50,7 +70,8 @@ a
 }
 
 .product-details {
-    padding: 30px;
+    padding: 20px 20px;
+    /* padding: 30px; */
 }
 
 .product-catagory {
@@ -59,13 +80,14 @@ a
     font-weight: 700;
     text-transform: uppercase;
     color: #ccc;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+    /* margin-bottom: 18px; */
 }
 
-.product-details h4 a {
+.product-details h4 p {
     font-weight: 500;
     display: block;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     color: #363636;
     text-decoration: none;
@@ -79,14 +101,15 @@ a
 .product-details p {
     font-size: 15px;
     line-height: 22px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     color: #999;
 }
 
 .product-bottom-details {
     overflow: hidden;
     border-top: 1px solid #eee;
-    padding-top: 20px;
+    padding-top: 12px;
+    /* padding-top: 20px; */
 }
 
 .product-bottom-details div {
@@ -122,4 +145,35 @@ a
 
 .product-links a:hover {
     color: #fbb72c;
+}
+
+.buyBtnBox{
+    position:absolute;
+    width: 60px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: DodgerBlue;
+    cursor: pointer; /* Mouse pointer on hover */
+    bottom: 130px;
+    left: 225px;
+    transition-duration: 0.4s;
+}
+
+.buyBtn{
+    position: relative;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer; 
+    left: 16px;
+    top: 2px;
+    text-decoration: none;
+}
+
+.buyBtnBox:hover{
+    background-color: orange;
+}
+
+.buyBtn:hover{
+    color: white;
 }

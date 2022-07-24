@@ -58,11 +58,9 @@ if ($products) {
 <body>
     <div class="table-title">
         <h3>Products List</h3>
+        <a href="add_items.php">add products+</a>
     </div>
-    <a href="add_items.php" style="text-decoration: none; font-size: 20px;">add items+</a>
-
-    <hr>
-
+   
     <table class="table-fill">
         <tr>
             <th class="text-left">Product ID</th>

@@ -6,7 +6,7 @@
 
 $p_id = " ";
 $t_price = 0;
-$double_tprice = (double)$t_price;
+$double_tprice = (float)$t_price;
 
 if (!isset($_SESSION['cus_id'])) {
     header('Location: landing_page.php');
@@ -23,8 +23,8 @@ if (!isset($_SESSION['cus_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders</title>
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/orders.css">
+    <link rel="stylesheet" href="css/itemCard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -34,7 +34,7 @@ if (!isset($_SESSION['cus_id'])) {
         <h1>My Orders</h1>
     </center>
 
-<?php
+    <?php
 
     $orders_query = "SELECT
                      orders.*,
@@ -60,42 +60,54 @@ if (!isset($_SESSION['cus_id'])) {
                     $_GET['products_qty'] = $record['qty'];
 
                 ?>
-                    <div>
 
+                    <div class="product-card">
                         <a class="linkedPage" href="item.php?item_id=<?= $_GET['p_id'] ?>">
+                            <?php
+                            if ($record['discount'] > 0) {
+                            ?> <div class="badge">
+                                    <strong><?php echo $record['discount'] ?>% OFF</strong>
+                                </div>
+                            <?php
+                            }
+                            ?>
 
-                            <div class="itemCard">
-
-                                <img class="itemImage" src="../assets/uploads/products/<?= $record['product_img'] ?>" alt="<?= $record['product_img'] ?>">
-
-                                <p class="itemName"><?php echo $record['product_brand']." ".$record['product_name'] ?></p>
-                                <p class="itemPrice"><strong> $<?php echo $record['order_price'] ?> </strong></p>
-                                <p class="itemQty">Purchased Units: <?php echo $record['order_qty'] ?> </p>
-
+                            <div class="product-tumb">
+                                <img class="itemImage" src="../assets/uploads/products/<?php echo $record['product_img']; ?>" alt="<?php echo $record['product_name']; ?>">
                             </div>
-
+                            <div class="product-details">
+                                <span class="product-catagory"><?php echo $record['product_brand'] ?></span>
+                                <h4>
+                                    <p><?php echo $record['product_brand'] . " " . $record['product_name'] ?></p>
+                                </h4>
+                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p> -->
+                                <p><?php echo $record['qty'] ?> Items Available</p>
+                                <p>Purchased Units: <?php echo $record['order_qty'] ?> </p>
+                                <div class="product-bottom-details">
+                                    <div class="product-price">$<?php echo $record['order_price'] ?></div>
+                                    <div class="product-links">
+                                        <a href="favFunction.php?item_id=<?= $_GET['p_id'] ?>"><i class="fa fa-heart"></i></a>
+                                        <a href="removeOrder.php?item_id=<?= $_GET['p_id'] ?>&purchased_qty=<?= $_GET['purchased_qty'] ?>&products_qty=<?= $_GET['products_qty'] ?>"> <i class="fa fa-trash-o"> </i></i> </a>
+                                    </div>
+                                </div>
+                            </div>
                         </a>
-
-                        <a class="ordersFavBtn" href="#?item_id=<?=$_GET['p_id']?>"> <i class="fa fa-heart" style="font-size:25px"> </i></i> </a>
-
-                        <a class="ordersTrashBtn" href="removeOrder.php?item_id=<?=$_GET['p_id']?>&purchased_qty=<?=$_GET['purchased_qty']?>&products_qty=<?=$_GET['products_qty']?>"> <i class="fa fa-trash-o" style="font-size:25px"> </i></i> </a>
-
                     </div>
 
                 <?php } ?>
 
-        </div>
+            </div>
 
     <?php }
     } else {
         echo "DB failed!";
     }
 
-?>
+    ?>
 
-<?php
+    <?php
 
-        $total_query = "SELECT
+    $total_query = "SELECT
                         orders.*,
                         products.*
                         FROM
@@ -104,26 +116,25 @@ if (!isset($_SESSION['cus_id'])) {
                         WHERE
                         orders.customer_id = '{$_SESSION['cus_id']}' AND orders.is_deleted = 0";
 
-        $total_check = mysqli_query($connection, $total_query);
+    $total_check = mysqli_query($connection, $total_query);
 
-        if($total_check){
+    if ($total_check) {
 
-            while($price = mysqli_fetch_array($total_check)){
+        while ($price = mysqli_fetch_array($total_check)) {
 
-                $u_price = $price['price'];
-                $o_price = $price['order_price'];
+            $o_price = $price['order_price'];
 
-                $double_uprice = (double)$o_price;
+            $double_o_price = (float)$o_price;
 
-                $double_tprice += $double_uprice;
-
-            }
-
+            $double_tprice += $double_o_price;
         }
+    }
 
-?>
+    ?>
 
-    <center> <p class="tPrice">Orders Total: $<?php echo $double_tprice; ?></p> </center>
+    <center>
+        <p class="tPrice">Orders Total: $<?php echo $double_tprice; ?></p>
+    </center>
 
 
 </body>
