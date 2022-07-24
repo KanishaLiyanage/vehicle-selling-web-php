@@ -1,41 +1,181 @@
-.itemImage{
-    width: 500px;
-    height: 500px;
-    display: block;
-    object-fit: contain;
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.favBtn{
-    position: relative;
-    /* background-color: DodgerBlue; Blue background */
-    background-color: transparent;
-    border: none; /* Remove borders */
-    padding: 12px 16px; /* Some padding */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
-    bottom: 280px;
-    left: 155px;
+body {
+    font-family: "Poppins", sans-serif;
 }
 
-.fa-heart{
+.fa-heart {
     color: DodgerBlue;
     cursor: pointer;
     transition-duration: 0.4s;
+    
 }
 
-.fa-heart:hover{
+.fa-heart:hover {
     color: red;
     cursor: pointer;
 }
 
-.discount{
+.fa-shopping-cart {
+    display: inline-block;
+    margin-left: 5px;
+    color: DodgerBlue;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.fa-shopping-cart:hover {
+    color: #fbb72c;
+}
+
+.discount {
     position: relative;
     bottom: 38px;
     left: 105px;
 }
 
-.discount strong{
+.discount strong {
     font-size: 20px;
     background-color: red;
     color: white;
+}
+
+a {
+    text-decoration: none;
+    color: #555;
+}
+
+p {
+    color: #555;
+}
+
+.container {
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.col-2 {
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+.col-2 h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin: 25px 0;
+}
+
+.btn {
+    display: inline-block;
+    background: DodgerBlue;
+    border: none;
+    color: #ffffff;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border-radius: 30px;
+    transition: background 0.5s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background:  rgb(5, 80, 155);
+}
+
+/* single product details */
+
+.single-product {
+    margin-top: 5px;
+}
+
+.single-product .col-2 img {
+    padding: 0;
+}
+
+.single-product .col-2 {
+    padding: 20px;
+}
+
+.single-product h4 {
+    margin: 20px 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.single-product select {
+    display: block;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.single-product input {
+    width: 50px;
+    height: 30px;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: DodgerBlue;
+    margin-right: 10px;
+    border: 1px solid DodgerBlue;
+}
+
+input:focus {
+    outline: none;
+}
+
+.single-product .fas {
+    color: #ff523b;
+    margin-left: 10px;
+}
+
+.small-img-row {
+    /* display: block; */
+    display: flex;
+    height: 150px;
+    justify-content:space-evenly;
+    padding-left: 80%;
+    padding-right: 0px;
+    /* justify-content: space-between; */
+}
+
+/* media query for less than 600 screen size */
+
+@media only screen and (max-width: 600px) {
+    .row {
+        text-align: center;
+    }
+
+    .col-2,
+    .col-3,
+    .col-4 {
+        flex-basis: 100%;
+    }
+
+    .single-product .row {
+        text-align: left;
+    }
+
+    .single-product .col-2 {
+        padding: 20px 0;
+    }
+
+    .single-product h1 {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
 }

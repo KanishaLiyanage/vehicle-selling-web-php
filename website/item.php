@@ -17,7 +17,41 @@ if (!isset($_SESSION['cus_id'])) {
 if (!isset($_GET['item_id'])) {
     echo "Product ID not passed!";
     // header('Location: home.php');
+}
+
+?>
+
+<?php
+
+if (isset($_POST['buy'])) {
+
+    $c_qty = mysqli_real_escape_string($connection, $_POST['qty']);
+    $a_qty = mysqli_real_escape_string($connection, $_POST['available_quantity']);
+    $p_price = mysqli_real_escape_string($connection, $_POST['prc']);
+    $discount = mysqli_real_escape_string($connection, $_POST['discount']);
+    $prd_id = mysqli_real_escape_string($connection, $_POST['pro_id']);
+
+    if ($c_qty <= $a_qty) {
+        if ($discount > 0) {
+            $t_disAdded = $p_price * ($discount / 100);
+            $t_price = ($p_price - $t_disAdded) * $c_qty; //total discounted price
+            header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&discounted={$t_disAdded}&qty={$c_qty}");
+        } else {
+            $t_price = $p_price * $c_qty; //total price
+            header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
+        }
+    } else {
+        echo "<script>
+                      alert('You are exceeded the available quantity!');
+                      window.location.href='item.php?item_id={$prd_id}';
+                      </script>";
     }
+}
+
+if (isset($_POST['cart'])) {
+    $prd_id = mysqli_real_escape_string($connection, $_POST['pro_id']);
+    header("location: cartFunction.php?item_id={$prd_id}");
+}
 
 ?>
 
@@ -36,111 +70,70 @@ if (!isset($_GET['item_id'])) {
 
 <body>
 
-<?php
-    echo "ID passed: ".$_GET['item_id'];
+    <?php
+    echo "ID passed: " . $_GET['item_id'];
 
     $query = "SELECT * FROM products WHERE product_id = '{$_GET['item_id']}' LIMIT 1";
 
     $result = mysqli_query($connection, $query);
 
-        if($result){ ?>
-        <?php   while($record = mysqli_fetch_array($result)){ 
+    if ($result) { ?>
+        <?php while ($record = mysqli_fetch_array($result)) {
 
-                $_GET['p_id'] = $record['product_id'];
-                $pro_id = $_GET['p_id']; //product id
-                $prd_id = $record['product_id']; //product id
-                $_GET['p_price'] = $record['price'];
-                $prc = $_GET['p_price']; //product one unit price
-                $_GET['dis'] = $record['discount'];
-                $p_dis = $_GET['dis'];
-                $_GET['prd_u'] = $record['qty'];
-                $avl_qty = $_GET['prd_u']; //available units
+            $_GET['p_id'] = $record['product_id'];
+            $pro_id = $_GET['p_id']; //product id
+            $prd_id = $record['product_id']; //product id
+            $_GET['p_price'] = $record['price'];
+            $prc = $_GET['p_price']; //product one unit price
+            $_GET['dis'] = $record['discount'];
+            $p_dis = $_GET['dis'];
+            $_GET['prd_u'] = $record['qty'];
+            $avl_qty = $_GET['prd_u']; //available units
 
         ?>
-                <div>
-                <p style="font-size:35px"> 
-                    <?php echo $record['product_brand']." ".$record['product_name']?>
-                <a href="favFunction.php?productId=<?=$_GET['item_id']?>">
-                    <i class="fa fa-heart" style="font-size:30px"> </i>
-                </a>
-                </p>
-                </div>
+            <!-- single product details -->
+            <div class="small-container single-product">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="../assets/uploads/products/<?php echo $record['product_img']; ?>" alt="<?php echo $record['product_name']; ?>" width="100%" id="ProductImg" />
+                    </div>
 
-                <div>
-                <img class="itemImage" src="../assets/uploads/products/<?php echo $record['product_img'];?>" alt="<?php echo $record['product_name'];?>" >
-                </div>
-
-                <div class="itemInfo">
-                    <p>Brand: <?php echo $record['product_brand'] ?></p>
-                    <p>Name: <?php echo $record['product_name'] ?></p>
-                    <p>Price: $<?php echo $record['price'] ?>
-                    <?php
-                        if($p_dis > 0){
-                            ?>  <div class="discount">
-                                <strong><?php echo $p_dis ?>% OFF</strong>
+                    <div class="col-2">
+                        <p>
+                            <?php echo $record['product_brand'] ?>
+                        </p>
+                        <h1><?php echo $record['product_name'] ?></h1>
+                        <h4>
+                            $<?php echo $record['price'] ?>
+                            <?php
+                            if ($p_dis > 0) {
+                            ?> <div class="discount">
+                                    <strong><?php echo $p_dis ?>% OFF</strong>
                                 </div>
                             <?php
-                        }
-                    ?>
-                    </p>
-                    <p>Availability: <?php echo $record['qty'] ?> items available</p>
+                            }
+                            ?>
+                        </h4>
+                        <p> <?php echo $record['qty'] ?> items available</p>
+
+                        <form action="item.php" method="POST">
+                            <input type="number" min="1" name="qty" size="2" maxlength="3" placeholder="Qty" value="1" required>
+                            <input type="hidden" name="prc" value="<?php echo $prc; ?>">
+                            <input type="hidden" name="discount" value="<?php echo $p_dis ?>">
+                            <input type="hidden" name="pro_id" value="<?php echo $pro_id; ?>">
+                            <input type="hidden" name="available_quantity" value="<?php echo $avl_qty ?>">
+                            <button class="btn" type="submit" name="buy">Buy Now</button>
+                        </form>
+                        
+                        <h3>Product Details</h3>
+                        <br />
+                        <p><?php echo $record['product_description'] ?></p>
+                    </div>
                 </div>
-                <div class="itemDesc">
-                    <p>Description: <?php echo $record['product_description'] ?></p>
-                </div>
+            </div>
 
-        <?php   }
-                
-        }
-
-?>
-
-    <form action="item.php" method="POST"> 
-        Quantity: <input type="number" min="1" name="qty" size="2" maxlength="3" placeholder="Qty" value="1" required>
-        <input type="hidden" name="prc" value="<?php echo $prc; ?>">
-        <input type="hidden" name="discount" value="<?php echo $p_dis ?>" >
-        <input type="hidden" name="pro_id" value="<?php echo $pro_id; ?>">
-        <input type="hidden" name="available_quantity" value="<?php echo $avl_qty ?>">
-        <input type="submit" name="buy" value="Buy Now">
-    </form>
-
-    <form action="item.php" method="POST">
-        <input type="hidden" name="pro_id" value="<?php echo $pro_id; ?>">
-        <input type="submit" name="cart" value="Add to Cart">
-    </form>
-
-    <?php
-        
-        if(isset($_POST['buy'])){
-
-            $c_qty = mysqli_real_escape_string($connection, $_POST['qty']);
-            $a_qty = mysqli_real_escape_string($connection, $_POST['available_quantity']);
-            $p_price = mysqli_real_escape_string($connection, $_POST['prc']);
-            $discount = mysqli_real_escape_string($connection, $_POST['discount']);
-            $prd_id = mysqli_real_escape_string($connection, $_POST['pro_id']);
-
-            if($c_qty <= $a_qty){
-                if($discount > 0){
-                    $t_disAdded = $p_price * ($discount/100) ;
-                    $t_price = ($p_price - $t_disAdded) * $c_qty; //total discounted price
-                    header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&discounted={$t_disAdded}&qty={$c_qty}");
-                }else{
-                    $t_price = $p_price * $c_qty; //total price
-                    header("location: confirmPurchase.php?item_id={$prd_id}&total={$t_price}&qty={$c_qty}");
-                }
-            }else{
-                echo "<script>
-                      alert('You are exceeded the available quantity!');
-                      window.location.href='item.php?item_id={$prd_id}';
-                      </script>";
-            }
-
-        }
-
-        if(isset($_POST['cart'])){
-            $prd_id = mysqli_real_escape_string($connection, $_POST['pro_id']);
-            header("location: cartFunction.php?item_id={$prd_id}");
-        }
+    <?php   }
+    }
 
     ?>
 
@@ -149,3 +142,14 @@ if (!isset($_GET['item_id'])) {
 </html>
 
 <?php mysqli_close($connection); ?>
+
+<!-- <div class="small-img-row">
+    <a href="cartFunction.php?item_id=<?= $_GET['p_id'] ?>"><i class="fa fa-shopping-cart fa-3x"></i></a>
+    <a href="favFunction.php?item_id=<?= $_GET['p_id'] ?>"><i class="fa fa-heart fa-3x"></i></a>
+</div> -->
+
+
+<!-- <form action="item.php" method="POST">
+                                <input type="hidden" name="pro_id" value="<?php echo $pro_id; ?>">
+                                <button class="btn" type="submit" name="cart">Add to Cart</button>
+                            </form> -->
