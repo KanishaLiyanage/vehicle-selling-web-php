@@ -124,9 +124,9 @@ if (isset($_POST['cart'])) {
                             <input type="hidden" name="available_quantity" value="<?php echo $avl_qty ?>">
                             <button class="btn" type="submit" name="buy">Buy Now</button>
                         </form>
-                        
+
                         <h3>Product Details</h3>
-                        <br />
+                        <br/>
                         <p><?php echo $record['product_description'] ?></p>
                     </div>
                 </div>

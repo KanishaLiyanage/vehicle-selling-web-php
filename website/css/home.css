@@ -16,6 +16,16 @@ a
     text-decoration: none;
 }
 
+.avlMsg{
+    margin: 2% 2% 2% 1%;
+    padding: 5px;
+    background-color: DodgerBlue;
+    color: white;
+    width: 12%;
+    font-size: 18px;
+    text-align: center;
+}
+
 .gridContainer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

@@ -1,12 +1,57 @@
-.header {
-    background: #eee;
-    overflow: auto;
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+body {
+  margin: 0;
+  font-size: 28px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.home {
-    float: left;
+.top-container {
+  height: 400px;
+  background-image: url("../../assets/images/sports-cars.jpg");
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
 }
 
-.logout {
-    float: right;
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+  z-index: 300;
+  /* display: flex; */
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  /* justify-content:space-evenly; */
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: DodgerBlue;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
 }

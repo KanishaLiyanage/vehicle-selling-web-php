@@ -20,22 +20,23 @@ if (!isset($_SESSION['cus_id'])) {
     <title>Home</title>
     <link rel="stylesheet" href="css/itemCard.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
-    <div class="homeHeader">
+    <!-- <div class="homeHeader">
         <p><a href="profile.php"> Go to Profile </a></p>
         <p><a href="myOrders.php"> My Orders </a></p>
         <p><a href="myCart.php"> My Cart </a></p>
         <p><a href="myFavorites.php"> Favorites </a></p>
         <p><a href="contact.php"> Contact Us </a></p>
-    </div>
+    </div> -->
 
-    <center>
+    <!-- <center>
         <h1>Home Page</h1>
-    </center>
+    </center> -->
 
     <?php
 
@@ -44,9 +45,13 @@ if (!isset($_SESSION['cus_id'])) {
 
     $result = mysqli_query($connection, $query);
 
-    if ($result) {
+    if ($result) { ?>
 
-        echo mysqli_num_rows($result) . " Cars Available <br>";
+        <div class="avlMsg">
+            <?php echo mysqli_num_rows($result) . " Cars Available <br>"; ?>
+        </div>
+
+        <?php
 
         if (mysqli_num_rows($result) > 0) { ?>
 

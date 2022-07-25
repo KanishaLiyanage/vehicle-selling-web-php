@@ -55,22 +55,21 @@ p {
     color: #555;
 }
 
-.container {
-    max-width: 1300px;
-    margin: auto;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
 .row {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content:flex-start;
+}
+
+.single-product .col-2 {
+    margin-right: 1%;
+    margin-left: 1%;
+    flex-basis: 45%;
 }
 
 .col-2 {
-    flex-basis: 50%;
+    flex-basis: 20%;
     min-width: 300px;
 }
 
@@ -99,15 +98,8 @@ p {
 /* single product details */
 
 .single-product {
-    margin-top: 5px;
-}
-
-.single-product .col-2 img {
-    padding: 0;
-}
-
-.single-product .col-2 {
-    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 40px;
 }
 
 .single-product h4 {
