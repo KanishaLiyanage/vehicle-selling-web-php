@@ -126,7 +126,7 @@ if (isset($_POST['cart'])) {
                         </form>
 
                         <h3>Product Details</h3>
-                        <br/>
+                        <br />
                         <p><?php echo $record['product_description'] ?></p>
                     </div>
                 </div>
@@ -137,19 +137,11 @@ if (isset($_POST['cart'])) {
 
     ?>
 
+    <script src="./js/header.js"></script>
+    <?php require_once('./components/footer.php'); ?>
+
 </body>
 
 </html>
 
 <?php mysqli_close($connection); ?>
-
-<!-- <div class="small-img-row">
-    <a href="cartFunction.php?item_id=<?= $_GET['p_id'] ?>"><i class="fa fa-shopping-cart fa-3x"></i></a>
-    <a href="favFunction.php?item_id=<?= $_GET['p_id'] ?>"><i class="fa fa-heart fa-3x"></i></a>
-</div> -->
-
-
-<!-- <form action="item.php" method="POST">
-                                <input type="hidden" name="pro_id" value="<?php echo $pro_id; ?>">
-                                <button class="btn" type="submit" name="cart">Add to Cart</button>
-                            </form> -->

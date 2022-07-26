@@ -2,13 +2,14 @@
 
 body {
   margin: 0;
-  font-size: 28px;
   font-family: 'Roboto', sans-serif;
 }
 
 .top-container {
-  height: 400px;
+  height: 38%;
   background-image: url("../../assets/images/sports-cars.jpg");
+  background-size: cover;
+  
   background-color: #f1f1f1;
   padding: 30px;
   text-align: center;

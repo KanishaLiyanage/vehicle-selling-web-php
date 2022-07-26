@@ -24,9 +24,6 @@ if (!isset($_SESSION['cus_id'])) {
 
 <body>
         <div class="headerBtns">
-        <a class="cartBtn" href="myCart.php"> Cart </a>
-        <a class="favBtn" href="myFavorites.php"> Favorites </a>
-        <a class="ordersBtn" href="myOrders.php"> Purchased Products </a>
         <a class="editBtn" href="editProfile.php"> Edit My Profile </a>
         </div>
 
@@ -82,6 +79,9 @@ if (!isset($_SESSION['cus_id'])) {
         <a class="logoutBtn" href="components/logout.php"> Logout </a>
 
     </center>
+
+    <script src="./js/header.js"></script>
+    <?php require_once('./components/footer.php'); ?>
 
 </body>
 
